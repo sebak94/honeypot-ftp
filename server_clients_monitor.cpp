@@ -25,11 +25,6 @@ bool ClientsMonitor::exist(int key) {
     return clients.count(key);
 }
 
-size_t ClientsMonitor::size() {
-    Lock l(m);
-    return clients.size();
-}
-
 std::map<int, Client*>::iterator ClientsMonitor::begin() {
     return clients.begin();
 }

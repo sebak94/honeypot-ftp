@@ -15,7 +15,6 @@ class ClientsMonitor {
     void add(int key, Client *value);
     Client* remove(int key);
     bool exist(int key);
-    size_t size();
     std::map<int, Client*>::iterator begin();
     std::map<int, Client*>::iterator end();
 };

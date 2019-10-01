@@ -17,11 +17,6 @@ bool DirectoriesMonitor::exist(std::string directory) {
     return directories.count(directory);
 }
 
-size_t DirectoriesMonitor::size() {
-    Lock l(m);
-    return directories.size();
-}
-
 std::set<std::string>::iterator DirectoriesMonitor::begin() {
     return directories.begin();
 }

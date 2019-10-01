@@ -14,7 +14,6 @@ class DirectoriesMonitor {
     void add(std::string directory);
     size_t remove(std::string directory);
     bool exist(std::string directory);
-    size_t size();
     std::set<std::string>::iterator begin();
     std::set<std::string>::iterator end();
 };
