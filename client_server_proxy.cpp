@@ -57,7 +57,7 @@ std::string ServerProxy::receiveSeveralLinesResponse(std::string end_code) {
         response.push_back(c);
         skt.Receive(&c, 1);
     }
-    std::string str_resp(response.begin(), response.end());
+    std::string str_resp(response.begin() + 1, response.end());
     return first_three_chars + str_resp + "\n";
 }
 
