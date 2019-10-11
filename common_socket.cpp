@@ -155,5 +155,5 @@ void Socket::Release() {
 }
 
 Socket::~Socket() {
-	Release();
+	if (fd != INVALID_FD) Release();
 }

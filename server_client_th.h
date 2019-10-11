@@ -12,11 +12,12 @@ class ClientTh: public Thread {
     private:
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
+    Client me;
     Socket *peer;
     FTP *ftp;
 
     void receiveCommand(std::vector<char> &command);
-    void sendResponse(std::string &response, bool should_stop_after_send);
+    void sendResponse(std::string &response);
     std::string handleCommand(std::string &cmd, bool *should_stop_after_send);
 
     public:

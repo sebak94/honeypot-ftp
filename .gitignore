@@ -35,3 +35,6 @@ client
 
 # zip
 *.zip
+
+# VSCode
+.vscode

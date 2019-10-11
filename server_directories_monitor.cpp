@@ -13,7 +13,7 @@ size_t DirectoriesMonitor::remove(std::string directory) {
     return directories.erase(directory);
 }
 
-bool DirectoriesMonitor::exist(std::string directory) {
+bool DirectoriesMonitor::exists(std::string directory) {
     return directories.count(directory);
 }
 

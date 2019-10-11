@@ -1,6 +1,6 @@
 #include "server_file.h"
 #include "server_file_error.h"
-#include <stdint.h>
+#include <fstream>
 #include <string>
 
 File::File(const std::string filename) {
@@ -8,8 +8,8 @@ File::File(const std::string filename) {
     if (fi.fail()) throw FileError("fopen failed");
 }
 
-std::istream& File::readLine(char *buf, size_t length) {
-    return fi.getline(buf, length);
+std::istream& File::readLine(std::string *line) {
+    return std::getline(fi, *line);
 }
 
 int File::error() {

@@ -5,11 +5,10 @@
 
 class Client {
     private:
-    const int id;
     bool is_logged_in;
 
     public:
-    explicit Client(int id);
+    Client();
     bool isLoggedIn();
     void login();
     std::string last_command;

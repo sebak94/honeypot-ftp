@@ -42,28 +42,24 @@ void ServerProxy::sendCommand(std::string command) {
 
 std::string ServerProxy::receiveSeveralLinesResponse(std::string end_code) {
     std::vector<char> response;
-    char first_three_chars[CODE_LENGTH + 1];
     char c;
-    skt.Receive(first_three_chars, CODE_LENGTH);
-    first_three_chars[CODE_LENGTH] = '\0';
-    std::string last_three_chars(first_three_chars);
-    while (last_three_chars != end_code) {
-        response.push_back(c);
-        skt.Receive(&c, 1);
-        last_three_chars = std::string(response.end() - CODE_LENGTH,
-            response.end());
+    skt.Receive(&c, 1);
+    response.push_back(c);
+    std::string str_resp(response.begin(), response.end());
+    while (str_resp.find(end_code) == std::string::npos) {
+        while (c != '\n') {
+            skt.Receive(&c, 1);
+            response.push_back(c);
+        }
+        c = ' ';
+        str_resp = std::string(response.begin(), response.end() - 1);
     }
-    while (c != '\n') {
-        response.push_back(c);
-        skt.Receive(&c, 1);
-    }
-    std::string str_resp(response.begin() + 1, response.end());
-    return first_three_chars + str_resp + "\n";
+    return str_resp + "\n";
 }
 
 std::string ServerProxy::receiveResponse() {
     std::vector<char> response;
-    char c;
+    char c;  
     skt.Receive(&c, 1);
     while (c != '\n') {
         response.push_back(c);

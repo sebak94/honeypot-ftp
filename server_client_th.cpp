@@ -7,9 +7,8 @@
 
 ClientTh::ClientTh(Socket *peer, FTP *ftp): keep_talking(true),
     is_running(true), peer(peer), ftp(ftp) {
-    ftp->addNewClient(peer->GetFD());
     std::string hello = ftp->newClientMessage();
-    sendResponse(hello, false);
+    sendResponse(hello);
 }
 
 void ClientTh::run() {
@@ -21,7 +20,8 @@ void ClientTh::run() {
             std::string str_cmd(v_cmd.begin(), v_cmd.end());
             std::string response = handleCommand(str_cmd,
                 &should_stop_after_send);
-            sendResponse(response, should_stop_after_send);
+            sendResponse(response);
+            if (should_stop_after_send) stop();
         } catch(const SocketError &e) {
             keep_talking = false;
             std::cout << e.what() << "\n";
@@ -41,7 +41,7 @@ std::string ClientTh::handleCommand(std::string &cmd,
     else
         param = cmd.substr(pos + 1);
 
-    std::string response = ftp->executeCommand(name, param, peer->GetFD());
+    std::string response = ftp->executeCommand(name, param, me);
     if (name == "QUIT") *should_stop_after_send = true;
     return response;
 }
@@ -55,16 +55,13 @@ void ClientTh::receiveCommand(std::vector<char> &command) {
     }
 }
 
-void ClientTh::sendResponse(std::string &response,
-    bool should_stop_after_send) {
+void ClientTh::sendResponse(std::string &response) {
     const char *resp = response.c_str();
     peer->Send(resp, response.length());
-    if (should_stop_after_send) stop();
 }
 
 void ClientTh::stop() {
     keep_talking = false;
-    ftp->removeClient(peer->GetFD());
     peer->Release();
 }
 

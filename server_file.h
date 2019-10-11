@@ -10,7 +10,7 @@ class File {
 
     public:
     explicit File(const std::string filename);
-    std::istream& readLine(char *buf, size_t length);
+    std::istream& readLine(std::string *line);
     int error();
     ~File();
 };
