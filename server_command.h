@@ -7,7 +7,8 @@
 
 class Command {
     public:
-    virtual std::string execute(std::string &cmd_param, FTP &ftp, Client &cl) = 0;
+    virtual std::string execute(std::string &cmd_param, FTP &ftp,
+        Client &cl) = 0;
 };
 
 #endif

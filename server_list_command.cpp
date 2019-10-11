@@ -4,6 +4,7 @@
 #include "server_directories_monitor.h"
 #include <string>
 #include <map>
+#include <set>
 
 ListCommand::ListCommand(std::map<std::string, std::string> &config):
     config(config) {}

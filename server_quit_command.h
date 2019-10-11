@@ -13,7 +13,8 @@ class QuitCommand: public Command {
 
     public:
     QuitCommand(std::map<std::string, std::string> &config);
-    virtual std::string execute(std::string &cmd_param, FTP &ftp, Client &cl) override;
+    virtual std::string execute(std::string &cmd_param, FTP &ftp,
+        Client &cl) override;
 };
 
 #endif
