@@ -28,12 +28,14 @@ void AcceptorTh::run() {
             clients.push_back(client_th);
             client_th->start();
             
-            for (std::vector<ClientTh*>::iterator it = clients.begin();
-                it != clients.end(); it++) {
+            std::vector<ClientTh*>::iterator it = clients.begin();
+            while (it != clients.end()) {
                 if ((*it)->isDead()) {
                     (*it)->join();
                     delete (*it);
                     clients.erase(it);
+                } else {
+                    it++;
                 }
             }
         } catch(const SocketError &e) {

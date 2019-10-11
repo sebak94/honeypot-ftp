@@ -150,10 +150,12 @@ int Socket::Receive(char *buf, size_t length) {
 }
 
 void Socket::Release() {
-	shutdown(fd, 2);
-	close(fd);
+	if (fd != INVALID_FD) {
+		shutdown(fd, 2);
+		close(fd);
+	}
 }
 
 Socket::~Socket() {
-	if (fd != INVALID_FD) Release();
+	Release();
 }

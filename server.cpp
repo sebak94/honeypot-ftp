@@ -9,12 +9,11 @@
 void run(const char* service, std::string config_file) {
     try {
         FTP ftp(config_file);
-        AcceptorTh *acceptor_skt = new AcceptorTh(service, &ftp);
-        acceptor_skt->start();
+        AcceptorTh acceptor_th(service, &ftp);
+        acceptor_th.start();
         while (getc(stdin) != 'q') {}
-        acceptor_skt->stop();
-        acceptor_skt->join();
-        delete acceptor_skt;
+        acceptor_th.stop();
+        acceptor_th.join();
     } catch(const SocketError &e) {
         std::cout << e.what() << "\n";
     }
