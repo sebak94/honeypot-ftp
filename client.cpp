@@ -13,7 +13,8 @@ void run(const char *hostname, const char *service) {
         std::cout << sp.getHelloMessage();
 
         while (running && !std::getline(std::cin, str).eof()) {
-            std::string response = sp.executeCommand(str + "\n");
+            str += "\n";
+            std::string response = sp.executeCommand(str);
             size_t pos = response.find(" ");
             std::string code = response.substr(0, pos);
             if (code == "221") running = false;

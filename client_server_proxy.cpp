@@ -21,16 +21,16 @@ std::string ServerProxy::getHelloMessage() {
     return receiveResponse();
 }
 
-bool ServerProxy::isMoreThanOneLineResponseCommand(std::string command) {
+bool ServerProxy::isMoreThanOneLineResponseCommand(std::string &command) {
     size_t pos = command.find(" ");
     std::string name = command.substr(0, pos);
     return name == LIST_COMMAND;
 }
 
-std::string ServerProxy::executeCommand(std::string command) {
+std::string ServerProxy::executeCommand(std::string &command) {
     sendCommand(command);
     if (isMoreThanOneLineResponseCommand(command)) {
-        return receiveSeveralLinesResponse(LIST_COMMAND_END_CODE);
+        return receiveSeveralLinesResponse();
     }
     return receiveResponse();
 }
@@ -40,13 +40,13 @@ void ServerProxy::sendCommand(std::string command) {
     skt.Send(cmd, command.size());
 }
 
-std::string ServerProxy::receiveSeveralLinesResponse(std::string end_code) {
+std::string ServerProxy::receiveSeveralLinesResponse() {
     std::vector<char> response;
     char c;
     skt.Receive(&c, 1);
     response.push_back(c);
     std::string str_resp(response.begin(), response.end());
-    while (str_resp.find(end_code) == std::string::npos) {
+    while (str_resp.find(LIST_COMMAND_END_CODE) == std::string::npos) {
         while (c != '\n') {
             skt.Receive(&c, 1);
             response.push_back(c);

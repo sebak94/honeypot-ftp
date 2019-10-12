@@ -2,24 +2,27 @@
 #include "server_lock.h"
 #include <string>
 #include <set>
+#include <vector>
 
-void DirectoriesMonitor::add(std::string directory) {
+void DirectoriesMonitor::add(std::string &directory) {
     Lock l(m);
     directories.insert(directory);
 }
 
-size_t DirectoriesMonitor::remove(std::string directory) {
+size_t DirectoriesMonitor::remove(std::string &directory) {
     Lock l(m);
     return directories.erase(directory);
 }
 
-bool DirectoriesMonitor::exists(std::string directory) {
+bool DirectoriesMonitor::exists(std::string &directory) {
+    Lock l(m);
     return directories.count(directory);
 }
 
-std::set<std::string>::iterator DirectoriesMonitor::begin() {
-    return directories.begin();
-}
-std::set<std::string>::iterator DirectoriesMonitor::end() {
-    return directories.end();
+void DirectoriesMonitor::getDirectories(std::vector<std::string> *direcs) {
+    Lock l(m);
+    for (std::set<std::string>::iterator it = directories.begin();
+        it != directories.end(); it++) {
+        direcs->push_back(*it);
+    }
 }

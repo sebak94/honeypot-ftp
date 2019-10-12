@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include <set>
+#include <vector>
 
 class DirectoriesMonitor {
     private:
@@ -11,11 +12,10 @@ class DirectoriesMonitor {
     std::set<std::string> directories;
 
     public:
-    void add(std::string directory);
-    size_t remove(std::string directory);
-    bool exists(std::string directory);
-    std::set<std::string>::iterator begin();
-    std::set<std::string>::iterator end();
+    void add(std::string &directory);
+    size_t remove(std::string &directory);
+    bool exists(std::string &directory);
+    void getDirectories(std::vector<std::string> *direcs);
 };
 
 #endif

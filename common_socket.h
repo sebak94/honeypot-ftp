@@ -13,8 +13,6 @@ class Socket {
     public:
     // Inicializa el fd en un valor inválido
     Socket();
-    // Devuelve el filedescriptor
-    int GetFD();
     // Crea un socket y se conecta a un servidor con los parámetros pasados
     void Connect(const char *hostname, const char *service);
     // Crea un socket para escuchar conexiones

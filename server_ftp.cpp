@@ -7,6 +7,7 @@
 #include <string>
 #include <set>
 #include <map>
+#include <vector>
 #include <utility>
 
 FTP::FTP(std::string config_file) {
@@ -45,12 +46,8 @@ size_t FTP::removeDirectory(std::string direc) {
     return directories.remove(direc);
 }
 
-std::set<std::string>::iterator FTP::directoriesIteratorBegin() {
-    return directories.begin();
-}
-
-std::set<std::string>::iterator FTP::directoriesIteratorEnd() {
-    return directories.end();
+void FTP::getDirectories(std::vector<std::string> *direcs) {
+    directories.getDirectories(direcs);
 }
 
 FTP::~FTP() {}

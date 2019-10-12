@@ -11,13 +11,13 @@ class ServerProxy {
 
     void sendCommand(std::string command);
     std::string receiveResponse();
-    std::string receiveSeveralLinesResponse(std::string end_code);
-    bool isMoreThanOneLineResponseCommand(std::string command);
+    std::string receiveSeveralLinesResponse();
+    bool isMoreThanOneLineResponseCommand(std::string &command);
 
     public:
     ServerProxy(const char *hostname, const char *service);
     std::string getHelloMessage();
-    std::string executeCommand(std::string command);
+    std::string executeCommand(std::string &command);
     ~ServerProxy();
 };
 

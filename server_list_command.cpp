@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <set>
+#include <vector>
 
 ListCommand::ListCommand(std::map<std::string, std::string> &config):
     config(config) {}
@@ -17,8 +18,10 @@ std::string ListCommand::execute(std::string &cmd_param, FTP &ftp,
 
 std::string ListCommand::executeSuccess(FTP &ftp) {
     std::string response = "150 " + config.at("listBegin") + "\n";
-    for (std::set<std::string>::iterator it = ftp.directoriesIteratorBegin();
-        it != ftp.directoriesIteratorEnd(); it++) {
+    std::vector<std::string> directories;
+    ftp.getDirectories(&directories);
+    for (std::vector<std::string>::iterator it = directories.begin();
+        it != directories.end(); it++) {
         std::string line = "drwxrwxrwx 0 1000 1000 4096 Sep 24 12:34 "
             + *it + "\n";
         response += line;

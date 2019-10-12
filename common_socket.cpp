@@ -13,10 +13,6 @@ Socket::Socket() {
 	fd = INVALID_FD;
 }
 
-int Socket::GetFD() {
-	return fd;
-}
-
 void Socket::BindAndListen(const char *service) {
 	int status;
 

@@ -6,6 +6,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
 
 class FTP {
     private:
@@ -19,8 +20,7 @@ class FTP {
         Client &cl);
     bool addDirectory(std::string direc);
     size_t removeDirectory(std::string direc);
-    std::set<std::string>::iterator directoriesIteratorBegin();
-    std::set<std::string>::iterator directoriesIteratorEnd();
+    void getDirectories(std::vector<std::string> *direcs);
     ~FTP();
 };
 
